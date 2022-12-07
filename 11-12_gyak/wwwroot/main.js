@@ -1,21 +1,12 @@
 ﻿
-fetch('/questions/4')
-    .then(response => response.json())
-    .then(data => console.log(data)
-);
-
-fetch('/questions/1')
-    .then(response => response.json())
-    .then(data => kérdésMegjelenítés(data)
-    );
-
 var jóVálasz;
 var questionId = 4
 
 function kérdésMegjelenítés(kérdés) {
     if (!kérdés) return;
+    console.log("jj: ");
     console.log(kérdés);
-    document.getElementById("kérdés_szövege").innerText = kérdés.questionText
+    document.getElementById("kérdés_szöveg").innerText = kérdés.question1
     document.getElementById("válasz1").innerText = kérdés.answer1
     document.getElementById("válasz2").innerText = kérdés.answer2
     document.getElementById("válasz3").innerText = kérdés.answer3
@@ -36,12 +27,12 @@ function kérdésMegjelenítés(kérdés) {
     
 }
 
-function válaszfeldolgozás(válasz) {
+function válaszfeldolgozás(response) {
     if (!response.ok) {
         console.error(`Hibás válasz: ${response.status}`)
     }
     else {
-        kérdésMegjelenítés(response.json())
+        response.json().then(q=>kérdésMegjelenítés(q))
     }
 }
 
